@@ -7,35 +7,27 @@ import { faSearch, faUser, faPlus } from '@fortawesome/free-solid-svg-icons';
 import { useFonts } from 'expo-font';
 import { faUserDoctor } from '@fortawesome/free-solid-svg-icons';
 
+
 function App({ navigation }) {
   return (
     <View style={styles.container}>
       {/* Fondo de imagen */}
       <Image source={require('./assets/imagen.png')} style={styles.backgroundImage} />
       {/* Menú de navegación */}
-      <View style={styles.navbar}>
-        <Text style={styles.logo}>HEALTECH</Text>
-        <View style={styles.profileIcon}>
-          <FontAwesomeIcon icon={faUser} color="white" />
-        </View>
-      </View>
+     
       {/* Contenido centrado */}
       <View style={styles.centeredContent}>
         <Text style={styles.name}>HEALTECH</Text>
         <Text style={styles.subtitle}>Bienvenido Dr Esperanza</Text>
         {/* Barra de búsqueda */}
-        <View style={styles.searchBar}>
+        <TouchableOpacity onPress={() => navigation.navigate('CrearReceta')} style={styles.searchBar}>
           <TextInput
             style={styles.input}
             placeholder="Buscar paciente"
             placeholderTextColor="black"
           />
           <FontAwesomeIcon icon={faSearch} style={styles.searchIcon} color="white" />
-        </View>
-        <Button
-          title="Ir a Crear Receta"
-          onPress={() => navigation.navigate('CrearReceta')}
-        />
+        </TouchableOpacity>
       </View>
     </View>
   );
@@ -44,40 +36,60 @@ function App({ navigation }) {
 function CrearReceta({ navigation }) {
   return (
     <ScrollView contentContainerStyle={styles.scrollContainer}>
-      <View style={styles.container}>
-        {/* Menú de navegación */}
-        <View style={styles.navbar}>
-          <Text style={styles.logo}>HEALTECH</Text>
-          <View style={styles.profileIcon}>
-            <FontAwesomeIcon icon={faUserDoctor} color="white" />
-          </View>
+      <View style={[styles.container, { backgroundColor: '#345DF5', padding:40, }]}>
+        <View style={[styles.headingContainer, { backgroundColor: 'transparent' }]}>
+        <Text style={[styles.heading, styles.bold, { color: 'white' }]}>CREANDO RECETA</Text>
         </View>
-        {/* Contenido */}
+        <View style={[styles.mainContainer, { backgroundColor: 'white' }]}>
+          
         <View style={styles.content}>
-          <Text style={[styles.heading, styles.bold]}>CREANDO RECETA</Text>
-          <View style={styles.formContainer}>
-            <View style={styles.column}>
-              <FontAwesomeIcon icon={faUserDoctor} style={[styles.icon, {width: 200, height: 120}]} />
-            </View>
-            <View style={styles.column}>
-              <TextInput style={[styles.input,{backgroundColor: '#D9D9D9', marginBottom: 5}]} placeholder="Nombre" />
-              <TextInput style={[styles.input,{backgroundColor: '#D9D9D9', marginBottom: 5}]}placeholder="DUI" keyboardType="numeric" />
-              <TextInput style={[styles.input,{backgroundColor: '#D9D9D9', marginBottom: 5}]}placeholder="Teléfono" keyboardType="numeric" />
-            </View>
-            <View style={styles.column}>
-              <FontAwesomeIcon icon={faUser} style={[styles.icon, {width: 200, height: 120}]}/>
-            </View>
-            <View style={styles.column}>
-              <TextInput style={[styles.input,{backgroundColor: '#D9D9D9', marginBottom: 5}]} placeholder="Nombre" />
-              <TextInput style={[styles.input,{backgroundColor: '#D9D9D9', marginBottom: 5}]}placeholder="DUI" keyboardType="numeric" />
-              <TextInput style={[styles.input,{backgroundColor: '#D9D9D9', marginBottom: 5}]}placeholder="Teléfono" keyboardType="numeric" />
-            </View>
-          </View>
+  <View style={styles.headingContainer}>
+  <View style={{ flexDirection: 'row' }}>
+    <View style={styles.column}>
+      <Text style={[styles.heading, styles.bold, { color: 'black', textAlign: 'center' }]}>INFORMACIÓN DEL DOCTOR</Text>
+    </View>
+    <View style={styles.column}>
+      <Text style={[styles.heading, styles.bold, { color: 'black', textAlign: 'center' }]}>INFORMACIÓN DEL PACIENTE</Text>
+    </View>
+    </View>
+  </View>
+  <View style={[styles.formContainer, { padding: 30 }]}>
+    <View style={styles.column}>
+      <FontAwesomeIcon icon={faUserDoctor} style={[styles.icon, { width: 200, height: 120 }]} />
+    </View>
+    <View style={styles.column}>
+    <View style={[styles.inputContainer, { marginBottom: 5 }]}>
+        <Text style={styles.inputText}>Carlos Enrique Esperanza</Text>
+    </View>
+    <View style={[styles.inputContainer, { marginBottom: 5 }]}>
+        <Text style={styles.inputText}>06637889-9</Text>
+    </View>
+    <View style={[styles.inputContainer, { marginBottom: 5 }]}>
+        <Text style={styles.inputText}>+503 70998800</Text>
+    </View>
+
+    </View>
+    <View style={styles.column}>
+      <FontAwesomeIcon icon={faUser} style={[styles.icon, { width: 200, height: 120 }]} />
+    </View>
+    <View style={styles.column}>
+    <View style={[styles.inputContainer, { marginBottom: 5}]}>
+        <Text style={styles.inputText}>Carlos Enrique Esperanza</Text>
+    </View>
+    <View style={[styles.inputContainer, { marginBottom: 5 }]}>
+        <Text style={styles.inputText}>06637889-9</Text>
+    </View>
+    <View style={[styles.inputContainer, { marginBottom: 5 }]}>
+        <Text style={styles.inputText}>+503 70998800</Text>
+    </View>
+    </View>
+  </View>
+</View>
+
           <Text style={[styles.label, styles.bold]}>DIAGNÓSTICO</Text>
           <View style={styles.column}>
-             <TextInput style={[styles.input, styles.textarea]} multiline={true} />
+            <TextInput style={[styles.input, styles.textarea]} multiline={true} />
           </View>
-
           <TouchableOpacity style={styles.addButton}>
             <FontAwesomeIcon icon={faPlus} style={styles.addIcon} />
             <Text style={styles.addText}>Agregar medicamento</Text>
@@ -90,8 +102,6 @@ function CrearReceta({ navigation }) {
               <Text style={styles.buttonText}>Cancelar</Text>
             </TouchableOpacity>
           </View>
-
-          
         </View>
       </View>
     </ScrollView>
@@ -100,13 +110,27 @@ function CrearReceta({ navigation }) {
 
 const styles = StyleSheet.create({
   scrollContainer: {
-    flex: 1,
-    backgroundColor: '#345DF5',
+    flexGrow: 1,
+    justifyContent: 'flex-start',
   },
   container: {
-    flex: 1,
+    flexGrow: 1,
+    justifyContent: 'flex-start',
     backgroundColor: 'white', // Añadido para que la vista tenga fondo blanco
   },  
+  inputContainer: {
+    backgroundColor: '#D9D9D9',
+    borderWidth: 1,
+    borderColor: '#D9D9D9',
+    borderRadius: 20,
+    paddingHorizontal: 10,
+    paddingVertical: 8,
+  },
+  inputText: {
+    color: 'black',
+    fontSize: 16,
+    textAlign: 'left',
+  },
   backgroundImage: {
     flex: 1,
     resizeMode: 'cover',
@@ -124,7 +148,6 @@ const styles = StyleSheet.create({
   logo: {
     fontSize: 24,
     color: 'white',
-    fontFamily: 'CeraRoundPro-Bold',
   },
   profileIcon: {
     fontSize: 20,
@@ -138,13 +161,11 @@ const styles = StyleSheet.create({
   },
   name: {
     fontSize: 50,
-    fontFamily: 'CeraRoundPro-Bold',
     color: 'white',
     marginBottom: 10,
   },
   subtitle: {
     fontSize: 24,
-    fontFamily: 'CeraRoundPro-Light',
     color: 'white',
     marginBottom: 20,
   },
@@ -153,16 +174,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginVertical: 10,
     width: 500,
-  },
-  input: {
-    paddingVertical: 10,
-    paddingHorizontal: 15,
-    borderRadius: 20,
-    marginRight: 10,
-    color: 'black',
-    backgroundColor: 'white',
-    flex: 1,
-    fontFamily: 'CeraRoundPro-Bold',
   },
   searchIcon: {
     fontSize: 20,
@@ -203,13 +214,21 @@ const styles = StyleSheet.create({
     alignItems: 'center', // Centrar verticalmente el textarea
   },
   textarea: {
-    width: 600,
     alignSelf:'center',
     borderRadius: 20,
     marginBottom: 20,
     backgroundColor: '#D9D9D9',
     borderWidth: 1,
-    borderColor: 'black',
+    borderColor: '#D9D9D9',
+  },
+  input: {
+    paddingVertical: 10,
+    paddingHorizontal: 15,
+    borderRadius: 20,
+    marginRight: 10,
+    color: 'black',
+    backgroundColor: 'white',
+    flex: 1,
   },
   addButton: {
     flexDirection: 'row',
@@ -238,8 +257,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     borderRadius: 20,
     marginHorizontal: 5,
-    width: 500, // Ancho de los botones
-    height: 25,
+    width: 350, // Ancho de los botones
+    height: 40,
   },
   sendButton: {
     backgroundColor: 'skyblue',
@@ -259,8 +278,37 @@ export default function MainApp() {
   return (
     <NavigationContainer>
       <Stack.Navigator>
-        <Stack.Screen name="Inicio" component={App} />
-        <Stack.Screen name="CrearReceta" component={CrearReceta} />
+        <Stack.Screen name="HEALTECH" component={App}  
+        options={{
+                headerStyle: {
+                  backgroundColor: 'black', // Cambia el color de fondo del encabezado a negro
+                  borderBottomWidth: 0, // Elimina el borde inferior del encabezado
+                  },
+                  headerTintColor: 'white', // Cambia el color del texto del encabezado a blanco
+                headerRight: () => (
+      <View style={{ marginRight: 10 }}>
+        <FontAwesomeIcon icon={faUser} color="white" size={20} />
+      </View>
+    ),
+  }}
+/>
+<Stack.Screen
+  name="CrearReceta"
+  component={CrearReceta}
+  options={{
+    headerStyle: {
+      backgroundColor: 'black', // Cambia el color de fondo del encabezado a negro
+      borderBottomWidth: 0, // Elimina el borde inferior del encabezado
+    },
+    headerTintColor: '#D9D9D9', // Cambia el color del texto del encabezado a blanco
+    headerRight: () => (
+      <View style={{ marginRight: 10 }}>
+        <FontAwesomeIcon icon={faUserDoctor} color="white" size={20} />
+      </View>
+    ),
+  }}
+/>
+
       </Stack.Navigator>
     </NavigationContainer>
   );
